@@ -10,5 +10,6 @@ docker run -ti --name acme-dns-client \
 ```
 
 ```
-acme-dns-client register -d zveronline.ru -s [https://acme.tonargorn.ru](https://acme.tonargorn.ru)
+acme-dns-client register -d zveronline.ru -s https://acme.tonargorn.ru
+certbot certonly --manual --preferred-challenges dns --manual-auth-hook 'acme-dns-client' -d *.zveronline.ru -d zveronline.ru
 ```
