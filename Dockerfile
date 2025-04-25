@@ -5,3 +5,4 @@ RUN wget https://github.com/acme-dns/acme-dns-client/releases/download/v0.3/acme
 RUN cp acme-dns-client /usr/local/bin/
 
 VOLUME ["/etc/acmedns"]
+CMD ["/usr/bin/bash"]
