@@ -3,10 +3,20 @@
 Run the image
 
 ```
-docker run -ti --name acme-dns-client \
-   --volume /srv/docker/acmedns:/etc/acmedns \
-   ghcr.io/zveronline/acme-dns-client:latest \
-   bash
+services:
+  acme:
+    image: ghcr.io/zveronline/acme-dns-client:latest
+    container_name: acme-dns-client
+    hostname: acme-dns-client
+    volumes:
+      - /srv/docker/acmedns:/etc/acmedns
+      - /srv/docker/letsencrypt:/etc/letsencrypt
+    stdin_open: true 
+    tty: true
+    dns:
+      - "77.88.8.8"
+      - "77.88.8.1"
+    restart: unless-stopped
 ```
 
 ```
