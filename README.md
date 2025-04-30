@@ -13,7 +13,7 @@ services:
       - /srv/docker/letsencrypt:/etc/letsencrypt
     environment:
       - TZ=Europe/Moscow
-      - CRON_JOB_CERTBOT="0 0,12 * * * root sleep 279 && certbot renew -q"
+      - CRON_JOB_CERTBOT=0 0,12 * * * root sleep 279 && certbot renew -q
     restart: unless-stopped
 ```
 
