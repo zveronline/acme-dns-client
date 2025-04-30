@@ -1,6 +1,8 @@
 FROM alpine:latest
-RUN apk add --update --no-cache bash nano certbot && mkdir /opt/acme
-WORKDIR /opt/acme
+RUN apk add --update --no-cache bash dcron logrotate curl tini nano certbot
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+WORKDIR /app
 RUN apk add --update --no-cache --virtual .build-deps go \
  && go install github.com/acme-dns/acme-dns-client@latest \
  && cp /root/go/bin/acme-dns-client /usr/local/bin/ \
@@ -12,4 +14,5 @@ RUN apk add --update --no-cache --virtual .build-deps go \
 # && cp acme-dns-client /usr/local/bin/
 
 VOLUME ["/etc/acmedns", "/etc/letsencrypt"]
-CMD ["bash"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/entrypoint.sh"]
