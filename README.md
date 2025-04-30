@@ -11,11 +11,9 @@ services:
     volumes:
       - /srv/docker/acmedns:/etc/acmedns
       - /srv/docker/letsencrypt:/etc/letsencrypt
-    stdin_open: true 
-    tty: true
-    dns:
-      - "77.88.8.8"
-      - "77.88.8.1"
+    environment:
+      - TZ=Europe/Moscow
+      - CRON_JOB_CERTBOT="0 0,12 * * * root sleep 279 && certbot renew -q"
     restart: unless-stopped
 ```
 
